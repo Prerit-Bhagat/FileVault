@@ -1,4 +1,4 @@
-package com.example.metadataservice.entity;
+package com.metadataservice.entity;
 
 import jakarta.persistence.*;
 import java.time.Instant;
