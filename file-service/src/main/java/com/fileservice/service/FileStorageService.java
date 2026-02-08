@@ -1,5 +1,8 @@
 package com.fileservice.service;
 
+import com.fileservice.client.MetadataClient;
+import com.fileservice.dto.FileMetadataDto;
+
 import io.micronaut.http.MediaType;
 import io.micronaut.http.multipart.CompletedFileUpload;
 import jakarta.inject.Singleton;
@@ -15,6 +18,13 @@ public class FileStorageService {
 
     private static final String UPLOAD_DIR = "uploads";
 
+    private final MetadataClient metadataClient;
+
+    // 🔥 Inject MetadataClient
+    public FileStorageService(MetadataClient metadataClient) {
+        this.metadataClient = metadataClient;
+    }
+
     // Generate unique filename
     private String generateFileName(String originalName) {
         String extension = "";
@@ -25,7 +35,7 @@ public class FileStorageService {
         return UUID.randomUUID() + extension;
     }
 
-    // Store file on disk
+    // Store file on disk + save metadata
     public String storeFile(CompletedFileUpload file) {
 
         if (file.getFilename() == null || file.getFilename().isEmpty()) {
@@ -48,13 +58,28 @@ public class FileStorageService {
         try (InputStream inputStream = file.getInputStream();
              FileOutputStream outputStream = new FileOutputStream(destination)) {
 
-            inputStream.transferTo(outputStream); // ✅ Java 9+
+            inputStream.transferTo(outputStream);
 
         } catch (IOException e) {
             throw new RuntimeException("File upload failed", e);
         }
 
-        return storedName; // return stored file name or ID
+        // 🔥 CREATE METADATA DTO
+        FileMetadataDto dto = new FileMetadataDto();
+        dto.setFileId(storedName);
+        dto.setOriginalName(file.getFilename());
+        dto.setStoredName(storedName);
+        dto.setSize(file.getSize());
+        dto.setContentType(
+                file.getContentType()
+                        .map(Object::toString)
+                        .orElse("application/octet-stream")
+        );
+
+        // 🔥 SAVE METADATA (THIS WAS MISSING)
+        metadataClient.saveMetadata(dto);
+
+        return storedName;
     }
 
     // Load file from disk

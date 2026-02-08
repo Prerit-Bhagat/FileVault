@@ -52,9 +52,18 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-runtime</artifactId>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut.reactor</groupId>
       <artifactId>micronaut-reactor-http-client</artifactId>
       <scope>compile</scope>
+    </dependency>
+     <dependency>
+      <groupId>org.yaml</groupId>
+      <artifactId>snakeyaml</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>io.micronaut.serde</groupId>

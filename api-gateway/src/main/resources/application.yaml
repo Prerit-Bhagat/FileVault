@@ -1,0 +1,31 @@
+# micronaut:
+#   application:
+#     name: api-gateway
+#   server:
+#     port: 8080
+
+# gateway:
+#   routes:
+#     - id: file-service
+#       uri: http://localhost:8081
+#       predicates:
+#         - Path=/api/files/**
+#       filters:
+#         - RewritePath=/api/files/(?<path>.*), /files/${path}
+# micronaut:
+#   server:
+#     port: 8080
+
+# gateway:
+#   services:
+#     - file-service
+#     - metadata-service
+
+micronaut:
+  server:
+    port: 8080
+
+gateway:
+  services:
+    file-service: http://localhost:8081
+    metadata-service: http://localhost:8082

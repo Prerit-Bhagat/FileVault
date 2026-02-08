@@ -1,33 +1,33 @@
 package com.metadataservice.service;
 
 import jakarta.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.net.http.HttpResponse;
 import java.util.Optional;
 
 import com.metadataservice.entity.FileMetadata;
 import com.metadataservice.repository.FileMetadataRepository;
-// import io.micronaut.http.HttpResponse;÷
-
 
 @Singleton
 public class MetadataService {
-    private final FileMetadataRepository fileMetadataRepository;
 
-    public MetadataService(FileMetadataRepository fileMetadataRepository) {
-        this.fileMetadataRepository = fileMetadataRepository;
+    private static final Logger LOG =
+            LoggerFactory.getLogger(MetadataService.class);
+
+    private final FileMetadataRepository repository;
+
+    public MetadataService(FileMetadataRepository repository) {
+        this.repository = repository;
     }
 
     public FileMetadata saveMetadata(FileMetadata metadata) {
-        return fileMetadataRepository.save(metadata);
+        LOG.info("Saving metadata for fileId={}", metadata.getFileId());
+        return repository.save(metadata);
     }
 
-    public Optional<FileMetadata> getMetadata(String fileId) {
-        return fileMetadataRepository.findById(fileId);
-    }
-
-    public long countFiles() {
-        return fileMetadataRepository.count();
+    public Optional<FileMetadata> getByFileId(String fileId) {
+        LOG.info("Fetching metadata for fileId={}", fileId);
+        return repository.findById(fileId);
     }
 }

@@ -1,9 +1,38 @@
+# micronaut:
+#     application:
+#         name: file-service
+#     server:
+#         port: 8081
+#     multipart:
+#       enabled: true
+#       max-file-size: 10MB
+#       max-request-size: 10MB
+
+# consul:
+#     client:
+#         registration:
+#             enabled: true
+#             service-name: file-service
+#             address: localhost
+#             port: 8081
+#         default-zone: http://localhost:8500
 micronaut:
     application:
         name: file-service
     server:
         port: 8081
     multipart:
-      enabled: true
-      max-file-size: 10MB
-      max-request-size: 10MB
+        enabled: true
+        max-file-size: 10MB
+        max-request-size: 10MB
+
+consul:
+    client:
+        default-zone: localhost:8500
+    registration:
+        enabled: true
+
+logger:
+    levels:
+        io.micronaut.discovery: DEBUG
+        io.micronaut.discovery.consul: DEBUG

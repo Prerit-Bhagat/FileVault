@@ -11,7 +11,7 @@
     <version>0.1</version>
     <packaging>jar</packaging>
 
-    <!-- Micronaut BOM / Parent -->
+    <!-- Micronaut Parent (CORRECT for Micronaut 4) -->
     <parent>
         <groupId>io.micronaut.platform</groupId>
         <artifactId>micronaut-parent</artifactId>
@@ -19,7 +19,7 @@
     </parent>
 
     <properties>
-        <jdk.version>21</jdk.version>
+        <jdk.version>17</jdk.version>
         <micronaut.runtime>netty</micronaut.runtime>
         <micronaut.aot.enabled>false</micronaut.aot.enabled>
         <exec.mainClass>com.fileservice.Application</exec.mainClass>
@@ -28,23 +28,17 @@
     <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
 
-        <!-- Micronaut HTTP Server -->
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>micronaut-http-server</artifactId>
-        </dependency>
-
+        <!-- HTTP Server -->
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>micronaut-http-server-netty</artifactId>
         </dependency>
 
-        <!-- HTTPClient for microservice connectivity -->
+        <!-- HTTP Client -->
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>micronaut-http-client</artifactId>
         </dependency>
-
 
         <!-- JSON Serialization -->
         <dependency>
@@ -56,11 +50,6 @@
         <dependency>
             <groupId>io.micronaut.validation</groupId>
             <artifactId>micronaut-validation</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
         <!-- Logging -->
@@ -77,53 +66,22 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>io.micronaut</groupId>
-            <artifactId>micronaut-http-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-
-
     </dependencies>
 
     <!-- ================= BUILD ================= -->
     <build>
         <plugins>
 
-            <!-- Micronaut Maven Plugin -->
             <plugin>
                 <groupId>io.micronaut.maven</groupId>
                 <artifactId>micronaut-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Java Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <release>21</release>
-
-                    <!-- Annotation processors (NO versions – BOM manages them) -->
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>io.micronaut</groupId>
-                            <artifactId>micronaut-inject-java</artifactId>
-                        </path>
-                        <path>
-                            <groupId>io.micronaut.validation</groupId>
-                            <artifactId>micronaut-validation-processor</artifactId>
-                        </path>
-                        <path>
-                            <groupId>io.micronaut.serde</groupId>
-                            <artifactId>micronaut-serde-processor</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
-
-                    <compilerArgs>
-                        <arg>-Amicronaut.processing.group=com.fileservice</arg>
-                        <arg>-Amicronaut.processing.module=file-service</arg>
-                    </compilerArgs>
+                    <release>17</release>
                 </configuration>
             </plugin>
 
