@@ -56,4 +56,13 @@ public class FileStorageService {
 
         return storedName; // return stored file name or ID
     }
+
+    // Load file from disk
+    public File loadFile(String fileId) {
+        File file = new File(UPLOAD_DIR + "/" + fileId);
+        if (!file.exists()) {
+            throw new RuntimeException("File not found");
+        }
+        return file;
+    }
 }

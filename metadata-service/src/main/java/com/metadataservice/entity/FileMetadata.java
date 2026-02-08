@@ -2,7 +2,9 @@ package com.metadataservice.entity;
 
 import jakarta.persistence.*;
 import java.time.Instant;
+import io.micronaut.serde.annotation.Serdeable;
 
+@Serdeable
 @Entity
 @Table(name = "file_metadata")
 public class FileMetadata {
@@ -25,7 +27,6 @@ public class FileMetadata {
     public String getFileId() {
         return fileId;
     }
-
     public void setFileId(String fileId) {
         this.fileId = fileId;
     }
@@ -33,7 +34,6 @@ public class FileMetadata {
     public String getOriginalName() {
         return originalName;
     }
-
     public void setOriginalName(String originalName) {
         this.originalName = originalName;
     }
@@ -41,7 +41,6 @@ public class FileMetadata {
     public String getStoredName() {
         return storedName;
     }
-
     public void setStoredName(String storedName) {
         this.storedName = storedName;
     }
@@ -49,7 +48,6 @@ public class FileMetadata {
     public Long getSize() {
         return size;
     }
-
     public void setSize(Long size) {
         this.size = size;
     }
@@ -57,7 +55,6 @@ public class FileMetadata {
     public String getContentType() {
         return contentType;
     }
-
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
