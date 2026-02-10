@@ -21,11 +21,53 @@
 #     - file-service
 #     - metadata-service
 
-micronaut:
-  server:
-    port: 8080
+# micronaut:
+#   server:
+#     port: 8080
+#   security:
+#     enabled: true
+#     token:
+#       jwt:
+#         signatures:
+#           secret:
+#             generator:
+#               secret: "mysecretkeymysecretkeymysecretkeymysecretkey"
+#               jwt-algorithm: HS256 
+#     intercept-url-map:
+#       - pattern: /auth/**
+#         access: isAuthenticated()
+#       - pattern: /**
+#         access: isAuthenticated()
 
 gateway:
   services:
     file-service: http://localhost:8081
     metadata-service: http://localhost:8082
+  
+micronaut:
+  application:
+    name: api-gateway
+
+  server:
+    port: 8080
+
+  security:
+    enabled: true
+    authentication: bearer
+
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              enabled: true
+              secret: "my-secret-key-that-is-very-long-and-secure"
+              jws-algorithm: HS256
+
+    intercept-url-map:
+      - pattern: /auth/**
+        access:
+          - isAnonymous()
+      - pattern: /**
+        access:
+          - isAuthenticated()

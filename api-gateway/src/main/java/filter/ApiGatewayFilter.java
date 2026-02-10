@@ -148,6 +148,11 @@ public class ApiGatewayFilter implements HttpServerFilter {
     public Publisher<MutableHttpResponse<?>> doFilter(
             HttpRequest<?> request,
             ServerFilterChain chain) {
+        
+        // 🔑 IMPORTANT: allow auth endpoints to be handled locally
+        if (request.getPath().startsWith("/auth")) {
+            return chain.proceed(request);
+        }
 
         String[] parts = request.getPath().split("/", 3);
 

@@ -30,4 +30,9 @@ public class MetadataService {
         LOG.info("Fetching metadata for fileId={}", fileId);
         return repository.findById(fileId);
     }
+
+    public void deleteByFileId(String fileId) {
+        repository.deleteById(fileId);
+    }
+
 }

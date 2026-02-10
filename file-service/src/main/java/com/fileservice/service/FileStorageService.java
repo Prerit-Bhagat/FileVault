@@ -90,4 +90,13 @@ public class FileStorageService {
         }
         return file;
     }
+    public void deleteFile(String fileId) {
+        File file = new File(UPLOAD_DIR + "/" + fileId);
+        if (!file.exists()) {
+            throw new RuntimeException("File not found");
+        }
+        if (!file.delete()) {
+            throw new RuntimeException("Failed to delete file");
+        }
+    }
 }

@@ -42,4 +42,11 @@ public class FileController {
                     "attachment; filename=\"" + file.getName() + "\""
                 );
     }
+
+    @Delete("/{fileId}")
+    public HttpResponse<?> delete(String fileId) {
+        fileStorageService.deleteFile(fileId);
+        return HttpResponse.noContent();
+    }
+
 }

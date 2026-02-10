@@ -148,4 +148,11 @@ public class MetadataController {
                 .map(HttpResponse::ok)
                 .orElse(HttpResponse.notFound());
     }
+
+    @Delete("/{fileId}")
+    public HttpResponse<?> delete(@PathVariable String fileId) {
+        metadataService.deleteByFileId(fileId);
+        return HttpResponse.noContent();
+    }
+
 }
